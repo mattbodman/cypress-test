@@ -14,12 +14,27 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import './commands';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-import { mount } from 'cypress/angular'
+import { mount, MountConfig, MountResponse } from 'cypress/angular';
+import { Type } from '@angular/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+
+const providers: any[] = [];
+const imports: any[] = [HttpClientModule];
+
+function customMount<T>(
+  component: string | Type<T>,
+  config?: MountConfig<T>,
+): Cypress.Chainable<MountResponse<T>> {
+  const customConfig = { ...config };
+  customConfig.imports = (customConfig.imports ?? []).concat(imports);
+  customConfig.providers = (customConfig.providers ?? []).concat(providers);
+  return mount<T>(component, customConfig);
+}
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
@@ -28,12 +43,13 @@ import { mount } from 'cypress/angular'
 declare global {
   namespace Cypress {
     interface Chainable {
-      mount: typeof mount
+      mount: typeof mount;
     }
   }
 }
 
-Cypress.Commands.add('mount', mount)
+Cypress.Commands.add('mount', mount);
 
+Cypress.Commands.add('mount', customMount);
 // Example use:
 // cy.mount(MyComponent)
