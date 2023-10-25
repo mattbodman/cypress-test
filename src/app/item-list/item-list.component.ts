@@ -16,14 +16,14 @@ import { sortFunction } from '../sort.function';
 export class ItemListComponent {
   itemService = inject(ItemApiService);
   items$: Observable<string[]>;
-  // @Output() itemClicked = new EventEmitter<string>();
+  @Output() itemClicked = new EventEmitter<string>();
 
   constructor() {
-    this.items$ = this.itemService.fetchItems$();
-    // .pipe(map((items) => sortFunction(items)));
+    this.items$ = this.itemService.fetchItems$()
+    .pipe(map((items) => sortFunction(items)));
   }
 
-  /*  onClick(item: string): void {
+    onClick(item: string): void {
     this.itemClicked.emit(item);
-  }*/
+  }
 }

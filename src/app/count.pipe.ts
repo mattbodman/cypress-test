@@ -6,8 +6,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CountPipe implements PipeTransform {
   transform(value: string): string {
-    // if (!value) return '';
-    // return `${value} [${value.length}]`;
-    return value;
+    if (!value) return '';
+    return `${value} [${value.length}]`;
+    // return value;
   }
 }

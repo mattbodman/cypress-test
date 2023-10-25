@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 export class ItemApiService {
   http = inject(HttpClient);
   fetchItems$(): Observable<string[]> {
-    return this.http.get<string[]>('/items');
-    // .pipe(catchError(() => of(['australia', 'new zealand', 'japan', 'usa'])));
+    return this.http.get<string[]>('/items')
+    .pipe(catchError(() => of(['australia', 'new zealand', 'japan', 'usa'])));
   }
 }

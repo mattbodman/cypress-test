@@ -1,14 +1,14 @@
 <div class="container">
   <ul>
-    <li
-      attr.data-cy="li_{{ index }}"
-      *ngFor="let item of items$ | async; let index = index"
-    >
-      <!--    <li
-      (click)="onClick(item)"
+<!--    <li
       attr.data-cy="li_{{ index }}"
       *ngFor="let item of items$ | async; let index = index"
     >-->
+          <li
+      (click)="onClick(item)"
+      attr.data-cy="li_{{ index }}"
+      *ngFor="let item of items$ | async; let index = index"
+    >
       <app-item [item]="item"></app-item>
     </li>
   </ul>
